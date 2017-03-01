@@ -5,8 +5,14 @@ var height = parseInt(svg.style('height'));
 var projection = d3.geoMercator().scale(3400).center([2.5, 46.5]).translate([width / 2, height / 2]);
 var path = d3.geoPath().projection(projection);
 
-d3.json("departements.geojson", function (error, departements) {
+queue()
+	.defer(d3.json, 'departements.geojson')
+	.defer(d3.csv, 'Population.csv') // Population data
+	.defer(d3.csv, 'Vehicles.csv') // Vehicle data
+	.await(drawMap);
 
+function drawMap(error, departements, population, vehicle) {
+	debugger;
     svgGroup.append("g")
             .attr("class", "departements")
             .selectAll("path")
@@ -17,7 +23,7 @@ d3.json("departements.geojson", function (error, departements) {
     svg.call(d3.zoom()
                .scaleExtent([1 / 2, 500])
                .on("zoom", zoomed));
-});
+};
 
 function zoomed() {
     svgGroup.attr("transform", d3.event.transform);

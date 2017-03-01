@@ -17,3 +17,16 @@ body {
   stroke-linejoin: round;
   stroke-linecap: round;
 }
+
+.tooltip {
+    position: absolute;
+    text-align: left;
+    width: 75px;
+    height: 25px;
+    padding: 8px;
+    font: 11px sans-serif;
+    background: #ffffff;
+    border: solid 1px #0000ff;
+    border-radius: 8px;
+    pointer-events: none;
+}
