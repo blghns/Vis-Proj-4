@@ -8,16 +8,16 @@ body {
 }
 
 .departements :hover {
-  stroke: #FFF831;
+  stroke: #bbb;
   stroke-width: 3px;
 }
 
-/*.departements{
+.departements{
   stroke: #aaa;
   stroke-width: 0.1px;
   stroke-linejoin: round;
   stroke-linecap: round;
-}*/
+}
 
 .tooltip {
     position: absolute;

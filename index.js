@@ -25,7 +25,8 @@ queue()
 function drawMap(error, departements, population, vehicle) {
 	var max = d3.max(population, function(d) { return +d["au 1er janvier 2016"];});
 	var min = d3.min(population, function(d) { return +d["au 1er janvier 2016"];});
-	var colorScale = d3.scaleLinear().domain([min,max]).range(["#4C33B0","#CDF52F"]);
+	var colorScale = d3.scaleLog().domain([min, max]).range(["#036899","#560332"]);
+	var colorScale = d3.scaleLog().domain([min, max]).range([ "#036899","#560332"]);
     svgGroup.append("g")
             .attr("class", "departements")
             .selectAll("path")
