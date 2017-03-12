@@ -15,7 +15,7 @@ tooltip.append('div')
     .attr('class', 'population');
 
 
-queue()
+d3.queue()
 	.defer(d3.json, 'departements.geojson')
 	.defer(d3.csv, 'Population.csv') // Population data
 	.defer(d3.csv, 'Vehicles.csv') // Vehicle data
