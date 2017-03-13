@@ -7,16 +7,20 @@ body {
     overflow: hidden;
 }
 
-.departements :hover {
-  stroke: #bbb;
-  stroke-width: 3px;
+.mapSvg {
+    position: absolute;
 }
 
-.departements{
-  stroke: #aaa;
-  stroke-width: 0.1px;
-  stroke-linejoin: round;
-  stroke-linecap: round;
+.departements :hover {
+    stroke: #bbb;
+    stroke-width: 3px;
+}
+
+.departements {
+    stroke: #aaa;
+    stroke-width: 0.1px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
 }
 
 .tooltip {
@@ -30,4 +34,37 @@ body {
     border: solid 1px #0000ff;
     border-radius: 8px;
     pointer-events: none;
+}
+
+.title {
+    float: left;
+    font-family: Georgia, serif;
+    font-size: 45px;
+    padding: 10px 0px 5px 10px;
+}
+
+.subtitle {
+    float: left;
+    clear: left;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    color: dimgrey;
+    padding: 0px 0px 10px 10px;
+}
+
+.info {
+    float: left;
+    clear: left;
+    font-family: Verdana, sans-serif;
+    font-size: 14px;
+    padding: 10px 10px;
+    width: 20%;
+}
+
+.legend {
+    float: left;
+    clear: left;
+    width: 150px;
+    height: 600px;
+    padding-top: 15px;
 }

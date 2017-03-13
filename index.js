@@ -1,4 +1,5 @@
-var svg = d3.select("body").append("svg").attr("width", "100%").attr("height", "100%");
+var svg = d3.select("body").append("svg").attr("class", "mapSvg").attr("width", "100%").attr("height", "100%");
+var textInfo = d3.select("body").append("div").attr("width", "100%").attr("height", "100%");
 var svgGroup = svg.append("g");
 var width = parseInt(svg.style('width'));
 var height = parseInt(svg.style('height'));
@@ -48,6 +49,8 @@ function drawMap(error, departements, population, vehicle) {
     svg.call(d3.zoom()
                .scaleExtent([1 / 2, 500])
                .on("zoom", zoomed));
+
+    writeInformation(colorScale);
 }
 
 function zoomed() {
@@ -77,4 +80,44 @@ function findPopulationOfDepartement(departement, population) {
     return +population.find(function (p) {
         return p["Départementales"] === departement;
     })["au 1er janvier 2016"];
+}
+
+function writeInformation(colorScale) {
+    textInfo.append("text").attr("class", "title").text("France Population");
+    textInfo.append("text").attr("class", "subtitle").text("2016 Estimate by Départements")
+    textInfo.append("text").attr("class", "info")
+            .text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
+
+    var legend = textInfo.append("svg").attr("class", "legend");
+
+    var legendData = [75000, 100000, 250000, 500000, 750000, 1000000, 1500000, 2000000, 2500000];
+
+    legend.selectAll("rect")
+          .data(legendData)
+          .enter()
+          .append("rect")
+          .attr("x", 10)
+          .attr("y", function (d, i) {
+              return i * 25;
+          })
+          .attr("width", 25)
+          .attr("height", 25)
+          .attr("fill", colorScale);
+
+    legend.selectAll("text")
+          .data(legendData)
+          .enter()
+          .append("text")
+          .attr("font-size", 12)
+          .attr("font-family", "Courier")
+          .attr("text-anchor", "start")
+          .attr("x", 45)
+          .attr("y", function (d, i) {
+              return i * 25 + 5 + 12;
+          })
+          .text(function (d) {
+              return d3.format(",d")(d);
+          })
+          .attr("stroke-width", 1)
+          .attr("stroke", colorScale);
 }
