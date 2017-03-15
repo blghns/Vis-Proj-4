@@ -16,6 +16,8 @@ tooltip.append('div')
        .attr('class', 'departement_name');
 tooltip.append('div')
        .attr('class', 'population');
+tooltip.append('div')
+       .attr('class', 'vehicles');
 
 // Véhicules particuliers Nombre - Special Vehicles
 // Véhicules utilitaires légers Nombre - Light commercial vehicles
@@ -55,7 +57,10 @@ function drawMap(error, departements, population, vehicle) {
             .on("mouseover", mouseover)
             .on("mousemove", function (d) {
                 var departmentPopulation = findPopulationOfDepartement(d.properties.nom, population);
-                mousemove(d.properties.nom, departmentPopulation);
+                var found = vehicle.find(function (v) {
+                    return v["Départements"] === d.properties.nom;
+                });
+                mousemove(d.properties.nom, departmentPopulation, +found[selectedVehicleType]);
             })
             .on("mouseout", mouseout);
 
@@ -109,9 +114,10 @@ function mouseover() {
            .style("opacity", 1);
 }
 
-function mousemove(departement_name, population) {
+function mousemove(departement_name, population, vehiclesRegistered) {
     tooltip.select('.departement_name').html('<b>' + departement_name);
     tooltip.select('.population').html('Population: ' + population.toLocaleString());
+    tooltip.select('.vehicles').html('Vehicles Registered: ' + vehiclesRegistered.toLocaleString());
     tooltip.style("left", (d3.event.pageX) + 10 + "px")
            .style("top", (d3.event.pageY) + 10 + "px");
 }
