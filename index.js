@@ -15,6 +15,17 @@ tooltip.append('div')
 tooltip.append('div')
        .attr('class', 'population');
 
+// Véhicules particuliers Nombre - Special Vehicles
+// Véhicules utilitaires légers Nombre - Light commercial vehicles
+// Véhicules industriels à moteur et de transports en commun Nombre - Industrial motor vehicles and public transport
+// Ensemble des véhicules Nombre - All vehicles
+
+var vehicleTypes = ["Véhicules particuliers Nombre",
+                    "Véhicules utilitaires légers Nombre",
+                    "Véhicules industriels à moteur et de transports en commun Nombre",
+                    "Ensemble des véhicules Nombre"];
+var selectedVehicleType = vehicleTypes[3];
+
 d3.queue()
   .defer(d3.json, 'departements.geojson')
   .defer(d3.csv, 'Population.csv') // Population data
@@ -29,6 +40,7 @@ function drawMap(error, departements, population, vehicle) {
         return +d["au 1er janvier 2016"];
     });
     var colorScale = d3.scaleLog().domain([min, max]).range(["#036899", "#560332"]);
+
     svgGroup.append("g")
             .attr("class", "departements")
             .selectAll("path")
@@ -45,6 +57,35 @@ function drawMap(error, departements, population, vehicle) {
                 mousemove(d.properties.nom, departmentPopulation);
             })
             .on("mouseout", mouseout);
+
+    var vehicleMin = d3.min(vehicle, function (d) {
+        return +d[selectedVehicleType];
+    });
+    var vehicleMax = d3.max(vehicle, function (d) {
+        return +d[selectedVehicleType];
+    });
+    var vehicleScale = d3.scaleLinear().domain([vehicleMin, vehicleMax]).range([1, 10]);
+
+    svgGroup.append("g")
+            .attr("class", "vehicles")
+            .selectAll("circle")
+            .data(departements.features)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return path.centroid(d)[0];
+            })
+            .attr("cy", function (d) {
+                return path.centroid(d)[1];
+            })
+            .attr("r", function (d) {
+                var found = vehicle.find(function (v) {
+                    return v["Départements"] === d.properties.nom;
+                });
+                return vehicleScale(found[selectedVehicleType]);
+            })
+            .attr("fill", "none")
+            .attr("stroke-width", "0.5px")
+            .attr("stroke", "white");
 
     svg.call(d3.zoom()
                .scaleExtent([1 / 2, 500])

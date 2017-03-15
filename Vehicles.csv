@@ -1,13 +1,13 @@
 No,Départements,Véhicules particuliers Nombre,Véhicules particuliers Evol. ann. (%),Véhicules utilitaires légers Nombre,Véhicules utilitaires légers Evol. ann. (%),Véhicules industriels à moteur et de transports en commun Nombre,Véhicules industriels à moteur et de transports en commun Evol. ann. (%),Ensemble des véhicules Nombre,Ensemble des véhicules Evol. ann. (%)
-01,Ain,17544,6.8,3174,1.5,556,35.3,21274,6.6
-02,Aisne,21270,12.2,3916,24.2,487,32.3,25673,14.2
-03,Allier,8227,6.5,1616,11.4,275,5,10118,7.2
-04,Alpes-de-Haute-Provence,4440,5.6,1064,4.6,103,8.4,5607,5.4
-05,Hautes-Alpes,3663,4.3,887,1,130,-11.6,4680,3.2
-06,Alpes-Maritimes,34742,1.6,6164,10.4,431,16.8,41337,2.9
-07,Ardèche,6883,3.2,1332,7.9,280,30.2,8495,4.6
-08,Ardennes,6886,2.8,1233,7.5,253,16.1,8372,3.8
-09,Ariège,4719,4.2,766,6.2,83,-15.3,5568,4.1
+1,Ain,17544,6.8,3174,1.5,556,35.3,21274,6.6
+2,Aisne,21270,12.2,3916,24.2,487,32.3,25673,14.2
+3,Allier,8227,6.5,1616,11.4,275,5,10118,7.2
+4,Alpes-de-Haute-Provence,4440,5.6,1064,4.6,103,8.4,5607,5.4
+5,Hautes-Alpes,3663,4.3,887,1,130,-11.6,4680,3.2
+6,Alpes-Maritimes,34742,1.6,6164,10.4,431,16.8,41337,2.9
+7,Ardèche,6883,3.2,1332,7.9,280,30.2,8495,4.6
+8,Ardennes,6886,2.8,1233,7.5,253,16.1,8372,3.8
+9,Ariège,4719,4.2,766,6.2,83,-15.3,5568,4.1
 10,Aube,6921,2.2,1635,4.9,228,-0.9,8784,2.6
 11,Aude,9315,4.3,1753,15.6,278,19.3,11346,6.3
 12,Aveyron,6448,5.5,1619,9.2,390,53.5,8457,7.8
@@ -95,12 +95,3 @@ No,Départements,Véhicules particuliers Nombre,Véhicules particuliers Evol. an
 93,Seine-Saint-Denis,33272,-1.7,11137,17.4,1634,35.5,46043,3.4
 94,Val-de-Marne,30698,8.2,6840,3.5,355,-12.6,37893,7.1
 95,Val-d'Oise,27969,-1.1,5512,0.2,779,12.9,34260,-0.6
-P,France de province,1606422,5.4,332885,7.2,47686,9.3,1986993,5.8
-M,France métropolitaine,1984472,5.2,408042,8.1,55014,9.3,2447528,5.8
-971,Guadeloupe,14205,5.8,2279,3.2,139,26.4,16623,5.6
-972,Martinique,14192,9.7,2127,-0.9,169,27.1,16488,8.4
-973,Guyane,4673,5.9,1132,-2,80,50.9,5885,4.7
-974,La Réunion,23706,6.3,5380,8.2,467,7.4,29553,6.7
-976,Mayotte,1067,-1.6,250,17.4,115,74.2,1432,5.1
-F,France,2042315,5.3,419210,8,55984,9.5,2517509,5.8
-"Source : Ministère en charge des transports, Service de l'Observation et des Statistiques (SOeS)",,,,,,,,,
