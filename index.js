@@ -148,9 +148,11 @@ function filter(values, population, departements){
 
 function writeInformation(colorScale) {
     textInfo.append("text").attr("class", "title").text("France Population");
-    textInfo.append("text").attr("class", "subtitle").text("2016 Estimate by Départements")
+    textInfo.append("text").attr("class", "subtitle").text("2016 Estimate by Départements");
     textInfo.append("text").attr("class", "info").attr("id", "legend")
-            .text("This map contains information about the population and vehicle sales in France departement.");
+            .text("This map contains information about the population and vehicle sales in France departement." +
+                " You can filter the range of the population shown with the slider below. The circles represent" +
+                " vehicle sales in the department and the radius is based on the total number of sales.");
 
     var legend = textInfo.append("svg").attr("class", "legend");
 
