@@ -1,10 +1,12 @@
-var svg = d3.select("body").append("svg").attr("class", "mapSvg").attr("width", "100%").attr("height", "100%");
-var textInfo = d3.select("body").append("div").attr("width", "100%").attr("height", "100%");
+var holder = d3.select("body").append("div");
+var svg = holder.append("svg").attr("class", "mapSvg").attr("width", "100%").attr("height", "100%");
+var textInfo = holder.append("div").attr("width", "100%").attr("height", "100%");
 var svgGroup = svg.append("g");
 var width = parseInt(svg.style('width'));
 var height = parseInt(svg.style('height'));
 var projection = d3.geoMercator().scale(3400).center([2.5, 46.5]).translate([width / 2, height / 2]);
 var path = d3.geoPath().projection(projection);
+var slider, colorScale;
 
 var tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip")
@@ -39,8 +41,7 @@ function drawMap(error, departements, population, vehicle) {
     var min = d3.min(population, function (d) {
         return +d["au 1er janvier 2016"];
     });
-    var colorScale = d3.scaleLog().domain([min, max]).range(["#036899", "#560332"]);
-
+    colorScale = d3.scaleLog().domain([min, max]).range(["#036899", "#560332"]);
     svgGroup.append("g")
             .attr("class", "departements")
             .selectAll("path")
@@ -92,6 +93,10 @@ function drawMap(error, departements, population, vehicle) {
                .on("zoom", zoomed));
 
     writeInformation(colorScale);
+
+    slider.noUiSlider.on('update', function( values, handle ) {
+    	filter(values, population);
+	});
 }
 
 function zoomed() {
@@ -123,11 +128,29 @@ function findPopulationOfDepartement(departement, population) {
     })["au 1er janvier 2016"];
 }
 
+function filter(values, population, departements){
+	svgGroup.selectAll("path")
+	.each(function (d){
+		var departmentPopulation = findPopulationOfDepartement(d.properties.nom, population);
+		if (departmentPopulation < values[0] || departmentPopulation > values[1]){
+			d3.select(this).transition().duration(1000).attr("fill", "lightgrey");
+		}
+		else{
+			d3.select(this)
+			.transition()
+			.duration(1000)
+			.attr("fill", function (d) {
+				return colorScale(departmentPopulation);
+			})
+		}
+	});
+}
+
 function writeInformation(colorScale) {
     textInfo.append("text").attr("class", "title").text("France Population");
     textInfo.append("text").attr("class", "subtitle").text("2016 Estimate by Départements")
-    textInfo.append("text").attr("class", "info")
-            .text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
+    textInfo.append("text").attr("class", "info").attr("id", "legend")
+            .text("This map contains information about the population and vehicle sales in France departement.");
 
     var legend = textInfo.append("svg").attr("class", "legend");
 
@@ -139,10 +162,10 @@ function writeInformation(colorScale) {
           .append("rect")
           .attr("x", 10)
           .attr("y", function (d, i) {
-              return i * 25;
+              return i * 35;
           })
-          .attr("width", 25)
-          .attr("height", 25)
+          .attr("width", 35)
+          .attr("height", 35)
           .attr("fill", colorScale);
 
     legend.selectAll("text")
@@ -154,11 +177,32 @@ function writeInformation(colorScale) {
           .attr("text-anchor", "start")
           .attr("x", 45)
           .attr("y", function (d, i) {
-              return i * 25 + 5 + 12;
+              return i * 35 + 5 + 12;
           })
           .text(function (d) {
               return d3.format(",d")(d);
           })
           .attr("stroke-width", 1)
           .attr("stroke", colorScale);
+
+
+  d3.select("#legend").append("div").attr("id", "slider");
+  slider = document.getElementById('slider');
+	noUiSlider.create(slider, {
+	start: [ 75000, 3000000 ],
+	snap: true,
+	connect: true,
+	orientation: 'vertical',
+	range: {
+		'min': 75000,
+		'12%': 100000,
+		'25%': 250000,
+		'38%': 500000,
+		'50%': 750000,
+		'63%': 1000000,
+		'75%': 1500000,
+		'87%': 2000000,
+		'max': 3000000
+		}
+	});
 }

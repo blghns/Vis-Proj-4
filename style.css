@@ -66,5 +66,27 @@ body {
     clear: left;
     width: 150px;
     height: 600px;
-    padding-top: 15px;
+    left: 40px;
+}
+
+#slider {
+    float: left;
+    clear: left;
+    width: 17px;
+    height: 280px;
+    top: 307px;
+    right: 15px;
+  }
+
+#slider .noUi-base {
+    background: white;
+}
+#slider .noUi-background {
+    background: white;
+}
+#slider .noUi-connect {
+    background: white;
+}
+#slider .noUi-handle{
+    background: black;
 }
